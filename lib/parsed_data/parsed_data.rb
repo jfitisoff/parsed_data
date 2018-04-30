@@ -1,33 +1,6 @@
-require 'active_support/all'
-require 'nokogiri'
-
-# https://stackoverflow.com/questions/2583472/regex-to-validate-json
-JSON_REGEXP = /(
-  # define subtypes and build up the json syntax, BNF-grammar-style
-  # The {0} is a hack to simply define them as named groups here but not match on them yet
-  # I added some atomic grouping to prevent catastrophic backtracking on invalid inputs
-  (?<number>  -?(?=[1-9]|0(?!\d))\d+(\.\d+)?([eE][+-]?\d+)?){0}
-  (?<boolean> true | false | null ){0}
-  (?<string>  " (?>[^"\\\\]* | \\\\ ["\\\\bfnrt\/] | \\\\ u [0-9a-f]{4} )* " ){0}
-  (?<array>   \[ (?> \g<json> (?: , \g<json> )* )? \s* \] ){0}
-  (?<pair>    \s* \g<string> \s* : \g<json> ){0}
-  (?<object>  \{ (?> \g<pair> (?: , \g<pair> )* )? \s* \} ){0}
-  (?<json>    \s* (?> \g<number> | \g<boolean> | \g<string> | \g<array> | \g<object> ) \s* ){0}
-)
-\A \g<json> \Z
-/uix
-
-h1 = {a: 1, b: {c: 2, d: {e: 3}}}
-h2 = {a: 1, b: {c: 2, d: {e: 3}, e: 4}, e: 5}
-
-h3 = {a: [1,2,{b: [3,4,5,{c: 6}]}]}
-h4 = {a: [1,2,{b: [3,4,5,{c: 6}], c: 7}]}
-
-class Object
-  def to_data
-    ParsedData.new self, :hash
-  end
-end
+require_relative 'version'
+require_relative 'constants'
+require_relative 'object'
 
 class ParsedData
   attr_accessor :source
@@ -70,7 +43,7 @@ class ParsedData
   def parse(data)
     if data.is_a? String
       case data
-      when /[[:space:]]*\<\?xml/
+      when XML_REGEXP
         @source = Hash.from_xml(data).with_indifferent_access
       when JSON_REGEXP
         @source = JSON.parse(data)
