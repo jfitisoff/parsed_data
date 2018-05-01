@@ -1,4 +1,7 @@
 # parsed_data
+[![Gem Version](https://badge.fury.io/rb/parsed_data.svg)](https://rubygems.org/gems/parsed_data)
+[![Build Status](https://circleci.com/gh/jfitisoff/parsed_data.svg?style=shield)](https://circleci.com/gh/jfitisoff/parsed_data)
+[![Coverage Status](https://coveralls.io/repos/github/jfitisoff/parsed_data/badge.svg?branch=master)](https://coveralls.io/github/jfitisoff/parsed_data?branch=master)
 
 (Very) experimental data parsing library that does two main things:
  * It converts JSON or XML strings into a generic, JSON-like data structure consisting of arrays and hashes.
