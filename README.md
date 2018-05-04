@@ -4,12 +4,12 @@
 [![Coverage Status](https://coveralls.io/repos/github/jfitisoff/parsed_data/badge.svg?branch=master)](https://coveralls.io/github/jfitisoff/parsed_data?branch=master)
 
 (Very) experimental data parsing library that does two main things:
- * It converts JSON or XML strings into a generic, JSON-like data structure consisting of arrays and hashes.
- * It implements some support for querying and updating the data structure in an eager, recursive way:
+1. It converts JSON or XML strings into a generic data structure consisting of arrays and hashes.
+2. It implements some extra support for querying and updating the data structure:
   * All hash keys in the structure can be accessed via dot notation (i.e., "a[:b]" could be written as "a.b")
   * This dot notation support is eager and recursive.
 
-The data structure can also be converted from a nested collection of arrays and hashes back to some other data structure. For example, a JSON string could be parsed, updated and then written back out as an XML string (using activesupport's built-in facilities for doing this.)
+The data structure can also be converted back to some other data format. For example, a JSON string could be parsed, updated and then written back out as an XML string (using activesupport's built-in facilities for doing this.)
 
 ## Installation
 
