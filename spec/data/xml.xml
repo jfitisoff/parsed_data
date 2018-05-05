@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <a type="integer">1</a>
+  <b type="integer">2</b>
+  <c type="array">
+    <c type="integer">3</c>
+    <c type="integer">4</c>
+    <c type="integer">5</c>
+  </c>
+</hash>
