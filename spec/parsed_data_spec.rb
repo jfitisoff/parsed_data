@@ -17,7 +17,7 @@ describe 'parsed data' do
     }
   end
 
-  context "data parsing" do
+  context "#to_data" do
     it "parses an XML string" do
       expect(hsh.to_xml.to_data).to be_a ParsedData
     end
@@ -33,6 +33,10 @@ describe 'parsed data' do
     it "parses an Array" do
       expect([hsh].to_data).to be_a ParsedData
     end
+  end
+
+  context ".read" do
+    expect(ParsedData.read('./data/xml.xml')).to be_present
   end
 
   context "getting data" do
@@ -71,7 +75,8 @@ describe 'parsed data' do
     end
 
     it "sets a new value at the entry point if it can't recursively find a matching key" do
-      skip
+      data.foo = 1266
+      expect(data['foo']).to eq(1266)
     end
   end
 end
