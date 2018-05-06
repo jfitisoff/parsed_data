@@ -5,6 +5,10 @@ require_relative 'object'
 class ParsedData
   attr_accessor :source
 
+  def self.read(*args)
+    File.read(*args).to_data
+  end
+
   def initialize(data, data_type = nil)
     @source = parse(data)
   end

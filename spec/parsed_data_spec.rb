@@ -36,7 +36,9 @@ describe 'parsed data' do
   end
 
   context ".read" do
-    expect(ParsedData.read('./data/xml.xml')).to be_present
+    it "reads an XML doc from a file" do
+      expect(ParsedData.read('./spec/data/xml.xml')).to be_present
+    end
   end
 
   context "getting data" do
@@ -64,19 +66,28 @@ describe 'parsed data' do
   context "setting data" do
     let!(:data) { hsh.to_data }
 
-    it "preferentially sets the top-level value before digging" do
-      data.c = 777
-      expect(data.c).to eq(777)
+    context "existing key" do
+      it "preferentially sets the top-level value before digging" do
+        data.c = 777
+        expect(data.c).to eq(777)
+      end
+
+      it "digs into the structure to find a matching key to set" do
+        data.d = 999
+        expect(data.d).to eq(999)
+      end
+
+      it "supports chaining data methods when setting a value" do
+        data.e.i = 10.1
+        expect(data.e.i).to eq(10.1)
+      end
     end
 
-    it "digs into the structure to find a matching key to set" do
-      data.d = 999
-      expect(data.d).to eq(999)
-    end
-
-    it "sets a new value at the entry point if it can't recursively find a matching key" do
-      data.foo = 1266
-      expect(data['foo']).to eq(1266)
+    context "new key" do
+      it "sets a new value at the initial level if it can't recursively find a matching key" do
+        data.foo = 1266
+        expect(data['foo']).to eq(1266)
+      end
     end
   end
 end
